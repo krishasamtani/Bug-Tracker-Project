@@ -1,0 +1,123 @@
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+
+function RegisterPage() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+
+    async function handleRegister(e) {
+        e.preventDefault();
+        setMessage("");
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setMessage("Registered successfully! Redirecting to login...");
+                setTimeout(() => navigate("/"), 1500);  // 1.5 second baad login page pe le jao
+            } else {
+                setMessage(data.error || "Registration failed");
+            }
+        } catch (err) {
+            setMessage("Could not connect to server");
+        }
+    }
+
+    return (
+    <div style={{ display: "flex", height: "100vh", fontFamily: "'Inter', sans-serif" }}>
+        {/* Left branding panel */}
+        <div style={{
+            width: "50%",
+            backgroundImage: `radial-gradient(circle, #334155 1px, transparent 1px), linear-gradient(135deg, #1E293B 0%, #0F172A 100%)`,
+            backgroundSize: "24px 24px, cover",
+            color: "white",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            padding: "60px"
+        }}>
+            <div style={{
+                fontSize: "34px", fontWeight: "700", marginBottom: "16px",
+                display: "flex", alignItems: "center", gap: "10px"
+            }}>
+                <span style={{
+                    display: "inline-flex", width: "36px", height: "36px",
+                    backgroundColor: "#F59E0B", borderRadius: "8px",
+                    alignItems: "center", justifyContent: "center", fontSize: "18px"
+                }}>🐞</span>
+                BugTracker
+            </div>
+            <h1 style={{ fontSize: "40px", fontWeight: "700", lineHeight: "1.2", maxWidth: "420px", marginBottom: "16px" }}>
+                Join the team.
+            </h1>
+            <p style={{ color: "#94A3B8", fontSize: "16px", maxWidth: "380px", lineHeight: "1.6" }}>
+                Create an account to start tracking and resolving bugs.
+            </p>
+        </div>
+
+        {/* Right register form panel */}
+        <div style={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#FFFFFF"
+        }}>
+            <div style={{ width: "340px" }}>
+                <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "6px", color: "#0F172A" }}>Create account</h2>
+                <p style={{ color: "#64748B", fontSize: "14px", marginBottom: "28px" }}>Start tracking bugs today</p>
+                <form onSubmit={handleRegister}>
+                    <label style={{ fontSize: "13px", fontWeight: "600", color: "#334155", marginBottom: "6px", display: "block" }}>
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        style={{
+                            display: "block", width: "100%", padding: "11px 12px",
+                            marginBottom: "18px", border: "1.5px solid #E2E8F0",
+                            borderRadius: "8px", fontSize: "14px", outline: "none"
+                        }}
+                    />
+                    <label style={{ fontSize: "13px", fontWeight: "600", color: "#334155", marginBottom: "6px", display: "block" }}>
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        style={{
+                            display: "block", width: "100%", padding: "11px 12px",
+                            marginBottom: "22px", border: "1.5px solid #E2E8F0",
+                            borderRadius: "8px", fontSize: "14px", outline: "none"
+                        }}
+                    />
+                    <button type="submit" style={{
+                        width: "100%", padding: "12px", backgroundColor: "#F59E0B",
+                        color: "white", border: "none", borderRadius: "8px",
+                        fontWeight: "600", cursor: "pointer", fontSize: "14px"
+                    }}>
+                        Register
+                    </button>
+                    {message && <p style={{ color: "#334155", marginTop: "12px", fontSize: "13px" }}>{message}</p>}
+                </form>
+                <p style={{ marginTop: "24px", fontSize: "14px", color: "#64748B" }}>
+                    Already have an account? <Link to="/" style={{ color: "#F59E0B", fontWeight: "600", textDecoration: "none" }}>Login</Link>
+                </p>
+            </div>
+        </div>
+    </div>
+);
+}
+
+export default RegisterPage;

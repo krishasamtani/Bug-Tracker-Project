@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+package-lock.json # (optional, but often ignored or tracked depending on preference)
+
+# Python
+__pycache__/
+*.pyc
+*.db
+*.sqlite3
+
+# Environment variables
+.env
