@@ -1,5 +1,4 @@
 flask
-flask_cors
+flask-cors
 flask_jwt_extended
-werkzeug.security
 gunicorn
