@@ -1,8 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,11 +13,78 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-* {
-    box-sizing: border-box;
+
+/* Lambe title/description card se bahar na nikle (desktop + mobile dono) */
+.bug-info {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
+/* ---------- Mobile / small screens ---------- */
+@media (max-width: 768px) {
+
+  /* Login / Register: split ki jagah upar chhota banner, neeche form */
+  .auth-page {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100vh;
+  }
+  .auth-left {
+    width: 100% !important;
+    flex: none !important;
+    padding: 28px 24px !important;
+  }
+  .auth-logo {
+    font-size: 28px !important;
+    margin-bottom: 8px !important;
+  }
+  .auth-left h1 {
+    font-size: 24px !important;
+    margin-bottom: 0 !important;
+  }
+  .auth-left p {
+    display: none !important;   /* tagline hata di taaki form jaldi dikhe */
+  }
+  .auth-right {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    padding: 32px 20px !important;
+  }
+  .auth-form-wrap {
+    width: 100% !important;
+    max-width: 340px;
+  }
+
+  /* Dashboard */
+  .app-nav {
+    padding: 12px 16px !important;
+  }
+  .app-content {
+    padding: 20px 14px !important;
+  }
+  .bug-card {
+    flex-direction: column !important;
+  }
+  .bug-info {
+    flex: none !important;
+    width: 100%;
+  }
+  .bug-title-row {
+    flex-wrap: wrap;
+  }
+  .bug-actions {
+    margin-left: 0 !important;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .bug-actions button {
+    padding: 10px 16px !important;   /* touch ke liye bade buttons */
+    font-size: 13px !important;
+  }
+
+  /* iPhone 16px se chhote input pe zoom kar deta hai, isliye 16px */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
 }
+

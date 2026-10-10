@@ -32,9 +32,9 @@ function RegisterPage() {
     }
 
     return (
-    <div style={{ display: "flex", height: "100vh", fontFamily: "'Inter', sans-serif" }}>
+    <div className="auth-page" style={{ display: "flex", height: "100vh", fontFamily: "'Inter', sans-serif" }}>
         {/* Left branding panel */}
-        <div style={{
+        <div className="auth-left" style={{
             width: "50%",
             backgroundImage: `radial-gradient(circle, #334155 1px, transparent 1px), linear-gradient(135deg, #1E293B 0%, #0F172A 100%)`,
             backgroundSize: "24px 24px, cover",
@@ -45,7 +45,7 @@ function RegisterPage() {
             alignItems: "flex-start",
             padding: "60px"
         }}>
-            <div style={{
+            <div className="auth-logo" style={{
                 fontSize: "34px", fontWeight: "700", marginBottom: "16px",
                 display: "flex", alignItems: "center", gap: "10px"
             }}>
@@ -65,14 +65,14 @@ function RegisterPage() {
         </div>
 
         {/* Right register form panel */}
-        <div style={{
+        <div className="auth-right" style={{
             width: "50%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "#FFFFFF"
         }}>
-            <div style={{ width: "340px" }}>
+            <div className="auth-form-wrap" style={{ width: "340px" }}>
                 <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "6px", color: "#0F172A" }}>Create account</h2>
                 <p style={{ color: "#64748B", fontSize: "14px", marginBottom: "28px" }}>Start tracking bugs today</p>
                 <form onSubmit={handleRegister}>

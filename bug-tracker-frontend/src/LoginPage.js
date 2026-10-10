@@ -37,9 +37,9 @@ function LoginPage() {
     }
 }
     return (
-    <div style={{ display: "flex", height: "100vh", fontFamily: "'Inter', sans-serif" }}>
+    <div className="auth-page" style={{ display: "flex", height: "100vh", fontFamily: "'Inter', sans-serif" }}>
         {/* Left branding panel */}
-        <div style={{
+        <div className="auth-left" style={{
             flex: "50%",
             background: "linear-gradient(135deg, #1E293B 0%, #0F172A 100%)",
             backgroundImage: `radial-gradient(circle, #334155 1px, transparent 1px), linear-gradient(135deg, #1E293B 0%, #0F172A 100%)`,
@@ -51,7 +51,7 @@ function LoginPage() {
             alignItems: "flex-start",
             padding: "60px"
         }}>
-            <div style={{
+            <div className="auth-logo" style={{
                 fontSize: "48px", fontWeight: "700", marginBottom: "16px",
                 display: "flex", alignItems: "center", gap: "10px"
             }}>
@@ -71,14 +71,14 @@ function LoginPage() {
         </div>
 
         {/* Right login form panel */}
-        <div style={{
+        <div className="auth-right" style={{
             flex: "50%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "#FFFFFF"
         }}>
-            <div style={{ width: "340px" }}>
+            <div className="auth-form-wrap" style={{ width: "340px" }}>
                 <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "6px", color: "#0F172A" }}>Welcome back</h2>
                 <p style={{ color: "#64748B", fontSize: "14px", marginBottom: "28px" }}>Log in to manage your bugs</p>
                 <form onSubmit={handleLogin}>

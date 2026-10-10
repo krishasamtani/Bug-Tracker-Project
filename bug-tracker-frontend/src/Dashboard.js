@@ -101,7 +101,7 @@ function Dashboard() {
     return (
         <div style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#F8FAFC", minHeight: "100vh" }}>
             {/* Top navbar */}
-            <div style={{
+            <div className="app-nav" style={{
                 backgroundColor: "#1E293B",
                 padding: "16px 40px",
                 display: "flex",
@@ -124,7 +124,7 @@ function Dashboard() {
                 </button>
             </div>
 
-            <div style={{ maxWidth: "800px", margin: "0 auto", padding: "40px 20px" }}>
+            <div className="app-content" style={{ maxWidth: "800px", margin: "0 auto", padding: "40px 20px" }}>
 
                 {/* Add bug card */}
                 <div style={{ backgroundColor: "white", borderRadius: "10px", padding: "24px", marginBottom: "30px", boxShadow: "0 1px 3px rgba(0,0,0,0.08)" }}>
@@ -227,13 +227,13 @@ function Dashboard() {
 
                     // NORMAL MODE
                     return (
-                        <div key={bug.id} style={{
+                        <div key={bug.id} className="bug-card" style={{
                             backgroundColor: "white", borderRadius: "10px", padding: "18px 20px",
                             marginBottom: "12px", boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
                             display: "flex", justifyContent: "space-between", alignItems: "flex-start"
                         }}>
-                            <div style={{ flex: 1 }}>
-                                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                            <div className="bug-info" style={{ flex: 1 }}>
+                                <div className="bug-title-row" style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
                                     <h3 style={{ fontSize: "15px", fontWeight: "600", color: "#0F172A", margin: 0 }}>{bug.title}</h3>
                                     <span style={{
                                         fontSize: "11px", fontWeight: "700", color: severityColor,
@@ -250,7 +250,7 @@ function Dashboard() {
                                 </div>
                                 <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>{bug.description}</p>
                             </div>
-                            <div style={{ display: "flex", gap: "8px", marginLeft: "16px" }}>
+                            <div className="bug-actions" style={{ display: "flex", gap: "8px", marginLeft: "16px" }}>
                                 <button onClick={() => startEditing(bug)} style={{ padding: "6px 12px", fontSize: "12px", fontWeight: "600", backgroundColor: "#DBEAFE", color: "#2563EB", border: "none", borderRadius: "6px", cursor: "pointer" }}>
                                     Edit
                                 </button>
