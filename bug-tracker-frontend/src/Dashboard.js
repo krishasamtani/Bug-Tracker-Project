@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "./config";
 
 function Dashboard() {
     const [bugs, setBugs] = useState([]);
@@ -23,7 +24,7 @@ function Dashboard() {
 
     async function fetchBugs() {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://127.0.0.1:5000/api/bugs", {
+        const response = await fetch(`${API_URL}/api/bugs`, {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -39,7 +40,7 @@ function Dashboard() {
         e.preventDefault();
         const token = localStorage.getItem("token");
 
-        await fetch("http://127.0.0.1:5000/api/bugs", {
+        await fetch(`${API_URL}/api/bugs`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -56,7 +57,7 @@ function Dashboard() {
 
     async function handleResolve(bugId) {
         const token = localStorage.getItem("token");
-        await fetch(`http://127.0.0.1:5000/api/bugs/${bugId}`, {
+        await fetch(`${API_URL}/api/bugs/${bugId}`, {
             method: "PUT",
             headers: { "Authorization": "Bearer " + token }
         });
@@ -65,7 +66,7 @@ function Dashboard() {
 
     async function handleDelete(bugId) {
         const token = localStorage.getItem("token");
-        await fetch(`http://127.0.0.1:5000/api/bugs/${bugId}`, {
+        await fetch(`${API_URL}/api/bugs/${bugId}`, {
             method: "DELETE",
             headers: { "Authorization": "Bearer " + token }
         });
@@ -81,7 +82,7 @@ function Dashboard() {
 
     async function handleSaveEdit(bugId) {
         const token = localStorage.getItem("token");
-        await fetch(`http://127.0.0.1:5000/api/bugs/${bugId}/edit`, {
+        await fetch(`${API_URL}/api/bugs/${bugId}/edit`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { API_URL } from "./config";
 
 function RegisterPage() {
     const [username, setUsername] = useState("");
@@ -12,7 +13,7 @@ function RegisterPage() {
         setMessage("");
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/api/register", {
+            const response = await fetch(`${API_URL}/api/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })

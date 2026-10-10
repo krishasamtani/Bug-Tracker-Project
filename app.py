@@ -1,11 +1,12 @@
+import os
+import sqlite3
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import check_password_hash, generate_password_hash
-import sqlite3
 
 app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = "your-secret-key"
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "dev-secret-change-me")
 jwt = JWTManager(app)
 CORS(app)
 DB_NAME = "bugs.db"
@@ -37,14 +38,14 @@ def init_db():
 
 @app.route("/")
 def home():
-    return "Bug Tracker coming soon!"
+    return "Bug Tracker API running!"
 
 @app.route("/api/register", methods=["POST"])
 def register():
     data = request.get_json() or {}
     username = data.get("username")
     password = data.get("password")
-    
+
     if not username or not password:
         return jsonify({"error": "Username and password required"}), 400
 
@@ -68,14 +69,14 @@ def login():
     data = request.get_json() or {}
     username = data.get("username")
     password = data.get("password")
-    
+
     with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute(
             "SELECT * FROM users WHERE username = ?", (username,)
         )
         user = cursor.fetchone()
-        
+
         if user and check_password_hash(user["password"], password):
             access_token = create_access_token(identity=username)
             return jsonify(access_token=access_token), 200
@@ -89,7 +90,7 @@ def get_bugs():
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM bugs")
         bugs = cursor.fetchall()
-    
+
     bugs_list = [dict(bug) for bug in bugs]
     return jsonify(bugs_list), 200
 
@@ -132,8 +133,34 @@ def resolve_bug(bug_id):
 
     return jsonify({"message": f"Bug status changed to {new_status}"}), 200
 
+
+@app.route("/api/bugs/<int:bug_id>/edit", methods=["PUT"])
+@jwt_required()
+def edit_bug(bug_id):
+    data = request.get_json() or {}
+    title = data.get("title")
+    description = data.get("description")
+    severity = data.get("severity")
+
+    if not title or not description or not severity:
+        return jsonify({"error": "All fields are required"}), 400
+
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE bugs SET title = ?, description = ?, severity = ? WHERE id = ?",
+            (title, description, severity, bug_id)
+        )
+        conn.commit()
+
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Bug not found"}), 404
+
+    return jsonify({"message": "Bug updated successfully"}), 200
+
+
 @app.route("/api/bugs/<int:bug_id>", methods=["DELETE"])
-@jwt_required()  # Added JWT protection here
+@jwt_required()
 def delete_bug(bug_id):
     with get_db() as conn:
         cursor = conn.cursor()
@@ -145,8 +172,6 @@ def delete_bug(bug_id):
 
     return jsonify({"message": "Bug deleted successfully"}), 200
 
-# Call init_db here so it runs on server startup in production (Render)
-init_db()
-
 if __name__ == "__main__":
+    init_db()
     app.run(debug=True)
