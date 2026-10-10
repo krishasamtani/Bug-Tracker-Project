@@ -23,7 +23,7 @@ function Dashboard() {
 
     async function fetchBugs() {
         const token = localStorage.getItem("token");
-        const response = await fetch("https://bug-tracker-project-iota.vercel.app/api/bugs", {
+        const response = await fetch("http://127.0.0.1:5000/api/bugs", {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -39,7 +39,7 @@ function Dashboard() {
         e.preventDefault();
         const token = localStorage.getItem("token");
 
-        await fetch("https://bug-tracker-project-iota.vercel.app/api/bugs", {
+        await fetch("http://127.0.0.1:5000/api/bugs", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function Dashboard() {
 
     async function handleResolve(bugId) {
         const token = localStorage.getItem("token");
-        await fetch(`https://bug-tracker-project-iota.vercel.app/api/bugs/${bugId}`, {
+        await fetch(`http://127.0.0.1:5000/api/bugs/${bugId}`, {
             method: "PUT",
             headers: { "Authorization": "Bearer " + token }
         });
@@ -65,7 +65,7 @@ function Dashboard() {
 
     async function handleDelete(bugId) {
         const token = localStorage.getItem("token");
-        await fetch(`https://bug-tracker-project-iota.vercel.app/api/bugs/${bugId}`, {
+        await fetch(`http://127.0.0.1:5000/api/bugs/${bugId}`, {
             method: "DELETE",
             headers: { "Authorization": "Bearer " + token }
         });
@@ -81,7 +81,7 @@ function Dashboard() {
 
     async function handleSaveEdit(bugId) {
         const token = localStorage.getItem("token");
-        await fetch(`https://bug-tracker-project-iota.vercel.app/api/bugs/${bugId}/edit`, {
+        await fetch(`http://127.0.0.1:5000/api/bugs/${bugId}/edit`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
