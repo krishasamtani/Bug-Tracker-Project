@@ -145,6 +145,8 @@ def delete_bug(bug_id):
 
     return jsonify({"message": "Bug deleted successfully"}), 200
 
+# Call init_db here so it runs on server startup in production (Render)
+init_db()
+
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
